@@ -40,6 +40,7 @@ feature_names = [
 "fare",
 "cabin",
 "embarked",
+"embarked_code",
 "sex_code", #sex is replaced by sex_code
 ]
          
