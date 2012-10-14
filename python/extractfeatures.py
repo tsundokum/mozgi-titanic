@@ -6,9 +6,7 @@ Created on Sat Oct 13 23:51:07 2012
 Idea (and code) is taken from https://github.com/benhamner/Stack-Overflow-Competition
 """
 
-import numpy as np
 import pandas as pd
-import re
 import os
 import features
 
@@ -27,24 +25,24 @@ def extract_features(feature_names, data):
             #load function from features.py and apply it
             fea = fea.join(getattr(features, name)(data))
     return fea
+      
+if __name__=="__main__":   
     
+    feature_names = [
+    "survived",
+    "pclass",
+    "name",
+    "age",
+    "sibsp",
+    "parch",
+    "ticket",
+    "fare",
+    "cabin",
+    "embarked_code", #embarked is replaced by embarked_code
+    "sex_code", #sex is replaced by sex_code
+    ]
+             
+    raw_data = get_dataframe("train.csv")
+    data = extract_features(feature_names, raw_data)
     
-feature_names = [
-"survived",
-"pclass",
-"name",
-"age",
-"sibsp",
-"parch",
-"ticket",
-"fare",
-"cabin",
-"embarked",
-"embarked_code",
-"sex_code", #sex is replaced by sex_code
-]
-         
-raw_data = get_dataframe("train.csv")
-data = extract_features(feature_names, raw_data)
-
-#manipulate data as you want
+    #manipulate data as you want
