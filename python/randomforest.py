@@ -20,6 +20,8 @@ K_FOLD = 10
 N_ESTIMATORS = 100
 MAX_DEPTH = 11
 
+OUT_PATH = '../results/'
+
 feature_names = [
 "pclass",
 "age",
@@ -74,4 +76,8 @@ if GENERATE_SUBMISSION:
     
     prediction = classifier.predict(test_data)
     
-    np.savetxt("/home/tsundokum/Desktop/submission_1.csv", prediction, fmt="%d")
+    from datetime import datetime
+    np.savetxt(OUT_PATH + "submission_"+ 
+           datetime.now().strftime("%Y%m%d_%H%M") + "_"  # date and time
+           + str(int(sum_score*10000/K_FOLD))            # average score (0.8181 -> 8181)
+           +".csv", prediction, fmt="%d")
