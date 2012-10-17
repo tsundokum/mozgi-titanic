@@ -30,6 +30,7 @@ feature_names = [
 "fare",
 "embarked_code",
 "sex_code", #sex is replaced by sex_code
+"ticket_number", # cleaned-up number of the ticket
 ]
 
 raw_data = get_dataframe("train.csv")
@@ -81,3 +82,4 @@ if GENERATE_SUBMISSION:
            datetime.now().strftime("%Y%m%d_%H%M") + "_"  # date and time
            + str(int(sum_score*10000/K_FOLD))            # average score (0.8181 -> 8181)
            +".csv", prediction, fmt="%d")
+

@@ -48,3 +48,24 @@ def embarked_code_func(s_embarked):
     
 def embarked_code(data):
     return pd.DataFrame.from_dict({"embarked_code": data["embarked"].apply(embarked_code_func)})
+
+def ticket_number_func(s_ticket):
+    """ Extracts actual number of the ticket, skipping the optional string prefix.
+        Examples:
+        >>> extract_digits("C.A./SOTON 34068")
+        34068
+        >>> extract_digits("34568")
+        36568
+    """
+    ends_with = s_ticket.split()[-1]
+    if ends_with.isdigit():
+        return int(ends_with)
+    else:
+        return 0
+
+def ticket_number(data):
+    df = pd.DataFrame.from_dict({"ticket_number": data["ticket"].apply(ticket_number_func)})
+    # replace missing values with the mean 
+    mean = df['ticket_number'].mean()
+    df = df['ticket_number'].apply(lambda i: i if i!=0 else mean)    
+    return df
