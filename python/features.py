@@ -5,6 +5,7 @@ Created on Sun Oct 14 01:28:08 2012
 """
 
 import pandas as pd
+import re
 
 INITIAL_FEATURES = [
 "survived",
@@ -69,3 +70,18 @@ def ticket_number(data):
     mean = df['ticket_number'].mean()
     df = df['ticket_number'].apply(lambda i: i if i!=0 else mean)    
     return df
+
+def cabin_code_func(s_cabin):
+    if not pd.isnull(s_cabin):
+        letters = re.findall("[A-G]+", s_cabin.upper()) # extract cabin letters
+        if letters:
+            # assuming that all letters are the same (should we?)
+            return ord(letters[0])-64    # 1 for 'A', 2 for 'B'...
+        else:
+            return 0 # no letters found
+    else:
+        return -1 # not a number
+    
+def cabin_code(data):
+    return pd.DataFrame.from_dict({"cabin_code": data["cabin"].apply(cabin_code_func)})
+

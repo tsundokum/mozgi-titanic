@@ -41,6 +41,7 @@ if __name__=="__main__":
     "embarked_code", #embarked is replaced by embarked_code
     "sex_code", #sex is replaced by sex_code
     "ticket_number", # cleaned-up number of the ticket
+    "cabin_code", # cabin is replaced with cabin_code
     ]
              
     raw_data = get_dataframe("train.csv")
