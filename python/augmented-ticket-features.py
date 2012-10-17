@@ -28,9 +28,10 @@ def extract_digits(s):
         >>> extract_digits("34568")
         36568
     '''
-    try:
-        return int(s.split()[-1])
-    except:
+    ends_with = s.split()[-1]
+    if ends_with.isdigit():
+        return int(ends_with)
+    else:
         return 0
 
 
