@@ -8,47 +8,54 @@ import pandas as pd
 import re
 
 INITIAL_FEATURES = [
-"survived",
-"pclass",
-"name",
-"sex",
-"age",
-"sibsp",
-"parch",
-"ticket",
-"fare",
-"cabin",
-"embarked"]
+    "survived",
+    "pclass",
+    "name",
+    "sex",
+    "age",
+    "sibsp",
+    "parch",
+    "ticket",
+    "fare",
+    "cabin",
+    "embarked"
+    ]
 
 ######################################################################
 # Add your feature extracting functions here
 ######################################################################
 
+
 def sex_code_func(s_sex):
-    if s_sex=="male":
+    if s_sex == "male":
         return 1
-    elif s_sex=="female":
+    elif s_sex == "female":
         return 0
     else:
-        raise Exception("Unknown sex value (%s)" %s_sex)
+        raise Exception("Unknown sex value (%s)" % s_sex)
+
 
 def sex_code(data):
-    return pd.DataFrame.from_dict({"sex_code": data["sex"].apply(sex_code_func)})
-    
+    return pd.DataFrame.from_dict({"sex_code":
+        data["sex"].apply(sex_code_func)})
+
+
 def embarked_code_func(s_embarked):
-    if s_embarked=="C":
+    if s_embarked == "C":
         return 0
-    elif s_embarked=="S":
+    elif s_embarked == "S":
         return 1
-    elif s_embarked=="Q":
+    elif s_embarked == "Q":
         return 2
     elif pd.isnull(s_embarked):
-        return 3 #if nan
+        return 3  # if nan
     else:
-        raise Exception("Unknown embarked value (%s)" %s_embarked)
-    
+        raise Exception("Unknown embarked value (%s)" % s_embarked)
+
+
 def embarked_code(data):
-    return pd.DataFrame.from_dict({"embarked_code": data["embarked"].apply(embarked_code_func)})
+    return pd.DataFrame.from_dict({"embarked_code":
+	data["embarked"].apply(embarked_code_func)})
 
 def ticket_number_func(s_ticket):
     """ Extracts actual number of the ticket, skipping the optional string prefix.
@@ -84,4 +91,15 @@ def cabin_code_func(s_cabin):
     
 def cabin_code(data):
     return pd.DataFrame.from_dict({"cabin_code": data["cabin"].apply(cabin_code_func)})
+
+
+def get_title_from_name(name):
+    [last, title_and_first] = name.split(", ")
+    title = title_and_first.split(" ")[0]
+    return title
+
+
+def title(data):
+    return pd.DataFrame.from_dict({"title":
+        data["name"].apply(get_title_from_name)})
 
