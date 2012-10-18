@@ -9,6 +9,7 @@ Idea (and code) is taken from https://github.com/benhamner/Stack-Overflow-Compet
 import pandas as pd
 import os
 import features
+from collections import Counter
 
 DATA_PATH = "../data/"
 
@@ -42,9 +43,11 @@ if __name__=="__main__":
     "sex_code", #sex is replaced by sex_code
     "ticket_number", # cleaned-up number of the ticket
     "cabin_code", # cabin is replaced with cabin_code
+    "title"
     ]
              
     raw_data = get_dataframe("train.csv")
     data = extract_features(feature_names, raw_data)
     
     #manipulate data as you want
+    print Counter(data["title"])
